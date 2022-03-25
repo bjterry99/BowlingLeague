@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Bowler>
+
+<h1>Viewing @ViewBag.yeet</h1>
+
+<div class="form-group">
+    <h4>Select team to view</h4>
+    <form method="post">
+        <select name="team" id="team">
+            @foreach (var t in ViewBag.Teams)
+            {
+                @if (t.TeamID == ViewBag.yeet2) { <option value=@t.TeamID selected>@t.TeamName</option> }
+                else { <option value=@t.TeamID>@t.TeamName</option> }
+            }
+            @if (ViewBag.yeet2 == 0) { <option value=0 selected>Home</option> } 
+            else { <option value=0>Home</option> } 
+        </select>
+        <button class="btn btn-sm btn-primary" action="submit">Submit</button>
+    </form>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Middle Initial</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip</th>
+            <th>Phone Number</th>
+            <th><a class="btn btn-success"  asp-controller="Home" asp-action="CreateForm">Add</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td>@b.BowlerFirstName</td>
+                <td>@b.BowlerMiddleInit</td>
+                <td>@b.BowlerLastName</td>
+                <td>@b.BowlerAddress</td>
+                <td>@b.BowlerCity</td>
+                <td>@b.BowlerState</td>
+                <td>@b.BowlerZip</td>
+                <td>@b.BowlerPhoneNumber</td>
+                <td><a class="btn btn-warning" asp-controller="Home" asp-action="Edit" asp-route-bowlerid="@b.BowlerID">Edit</a></td>
+                <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-bowlerid="@b.BowlerID">Delete</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
